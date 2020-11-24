@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import cal from './modules/cal'
-
+import cal from "./modules/cal";
 
 Vue.use(Vuex);
 
