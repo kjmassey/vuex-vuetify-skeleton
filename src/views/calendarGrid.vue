@@ -6,7 +6,9 @@
         v-for="(blank, index) in preOffset"
         :key="'blank' + index"
         class="cal-square out-month"
-      ></div>
+      >
+        {{ prevMonthDayCount - (preOffset - index - 1) }}
+      </div>
       <!-- DATES IN CURRENT MONTH -->
       <div
         v-for="(cell, index) in calState.dayCount"
@@ -20,13 +22,16 @@
         v-for="(blank, index) in postOffset"
         :key="'blank2' + index"
         class="cal-square out-month"
-      ></div>
+      >
+        {{ index + 1 }}
+      </div>
     </div>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   data: () => ({}),
   computed: {
@@ -52,6 +57,10 @@ export default {
         offset = 35 - cellCount;
       }
       return offset;
+    },
+    prevMonthDayCount: function() {
+      let prevMonth = moment(this.calState.dateContext).subtract(1, "months");
+      return prevMonth.daysInMonth();
     }
   },
   methods: {}

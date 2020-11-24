@@ -37,10 +37,10 @@ const mutations = {
   ),
   CHANGE_MONTH: (state, newMonth) => (
     (state.dateContext = newMonth),
-    ((state.dayCount = newMonth.daysInMonth()),
+    (state.dayCount = newMonth.daysInMonth()),
     (state.dateContextFirstDay = moment(state.dateContext)
       .subtract(state.dateContext.get("date") - 1, "days")
-      .format("dddd"))),
+      .format("dddd")),
     (state.dateContextFirstDayNum = moment(state.dateContext)
       .subtract(state.dateContext.get("date") - 1, "days")
       .get("day"))

@@ -11,9 +11,9 @@
     <br />
     <span class="small-text">
       First DoW: {{ calState.dateContextFirstDay }}
-      <br />
-      Day Count: {{ calState.dayCount }}
-      <br />
+    </span>
+    <span class="small-text"> Day Count: {{ calState.dayCount }} </span>
+    <span class="small-text">
       <a href="#" @click="this.goToToday">Go to today</a>
     </span>
   </div>
@@ -45,13 +45,12 @@ export default {
 
 <style scoped>
 #date {
-  border: 1px solid red;
   text-align: center;
   font-size: 3rem;
 }
 
 .date-nav-arrow {
-  margin: 6rem;
+  margin: 0 4rem;
 }
 
 .date-nav-arrow :hover {
@@ -59,6 +58,8 @@ export default {
 }
 
 .small-text {
+  display: inline-block;
   font-size: 1rem;
+  padding: 0 15px;
 }
 </style>
