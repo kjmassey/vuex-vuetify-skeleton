@@ -1,33 +1,26 @@
 <template>
   <v-container class="container">
     <div id="calContainer">
+      <!-- BLANK PADDING CELLS -->
       <div
-        v-for="gridNum in gridCount"
-        :key="gridNum"
-        class="cal-square"
-        v-bind:class="{
-          'in-month':
-            calState.dateContextFirstDayNum + startDayOffset == gridNum ||
-            calState.dateContextFirstDayNum + calState.dayCount == gridNum ||
-            (gridNum >= calState.dateContextFirstDayNum + startDayOffset &&
-              gridNum <= calState.dateContextFirstDayNum + calState.dayCount),
-          'out-month': !(
-            calState.dateContextFirstDayNum + startDayOffset == gridNum ||
-            calState.dateContextFirstDayNum + calState.dayCount == gridNum ||
-            (gridNum >= calState.dateContextFirstDayNum + startDayOffset &&
-              gridNum <= calState.dateContextFirstDayNum + calState.dayCount)
-          )
-        }"
+        v-for="(blank, index) in preOffset"
+        :key="'blank' + index"
+        class="cal-square out-month"
+      ></div>
+      <!-- DATES IN CURRENT MONTH -->
+      <div
+        v-for="(cell, index) in calState.dayCount"
+        :key="'date' + index"
+        class="cal-square in-month"
       >
-        <span
-          class="grid-num"
-          v-if="
-            gridNum - calState.dateContextFirstDayNum > 0 &&
-              gridNum - calState.dateContextFirstDayNum <= calState.dayCount
-          "
-          >{{ gridNum - calState.dateContextFirstDayNum }}</span
-        >
+        {{ index + 1 }}
       </div>
+      <!-- BLANK PADDING CELLS -->
+      <div
+        v-for="(blank, index) in postOffset"
+        :key="'blank2' + index"
+        class="cal-square out-month"
+      ></div>
     </div>
   </v-container>
 </template>
@@ -38,21 +31,27 @@ export default {
   data: () => ({}),
   computed: {
     ...mapGetters(["calState"]),
-    gridCount: function() {
-      if (this.calState.dateContextFirstDayNum + this.calState.dayCount > 35) {
-        return 42;
+    preOffset: function() {
+      if (!this.calState.startOnMonday) {
+        return this.calState.dateContextFirstDayNum;
       } else {
-        return 35;
+        if (this.calState.dateContextFirstDayNum == 0) {
+          return 6;
+        } else {
+          return this.calState.dateContextFirstDayNum - 1;
+        }
       }
     },
-    startDayOffset: function() {
-      if (this.calState.startOnMonday == false) {
-        return 1;
-      } else if (this.calState.dateContextFirstDayNum == 1) {
-        return 0;
+    postOffset: function() {
+      let offset = 0;
+      let cellCount = this.preOffset + this.calState.dayCount;
+
+      if (cellCount > 35) {
+        offset = 42 - cellCount;
       } else {
-        return 7;
+        offset = 35 - cellCount;
       }
+      return offset;
     }
   },
   methods: {}
