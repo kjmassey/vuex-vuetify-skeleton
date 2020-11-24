@@ -1,3 +1,3 @@
 # Vuex-Vuetify-Router-Template
 
-## This is just a skeletal template of a blank project that has vuex, vuetify and router set up!
+## I'm learning more about Vue, Vuex, Vuetify and Django by building a calendar app!
